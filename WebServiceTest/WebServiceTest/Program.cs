@@ -21,11 +21,13 @@ namespace WebServiceTest
 
             //http://10.24.13.154/cwbase/service/mdm/MDMZdfwMappingSrv.asmx
             //http://10.24.13.154/cwbase/service/mdm/MDMAdapterDataExportSrv.asmx
-            string url = "http://10.24.13.158/cwbase/service/mdm/MDMAdapterDataImportSrv.asmx";
-            WebServiceAgent agent = new WebServiceAgent(url);
-            MethodInfo[] m = agent.Methods;
+            string url = "http://10.24.13.158/cwbase/service/mdm/MDMDBLinkSrv.asmx";
+            MethodInfo[] m = WebServiceAgent.Methods(url);
 
-            MethodInfo t = agent.Method("DataImport");
+            MethodInfo t = WebServiceAgent.Method(url,"GetDBLinkList");
+
+            object[] param = { "OE73", "02", "ORA", "MDMZGZD", "" };
+            object result = WebServiceAgent.Invoke(url,"GetYwxtTableColList", param);
         }
     }
 }

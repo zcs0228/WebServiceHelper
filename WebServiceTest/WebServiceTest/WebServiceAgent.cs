@@ -13,14 +13,46 @@ namespace WebServiceTest
 {
     public class WebServiceAgent
     {
-        private object agent;
-        private Type agentType;
         private const string CODE_NAMESPACE = "zcs.temp.service";
+        private static Dictionary<string, object> _agent;
+        private static Dictionary<string, Type> _agentType;
+
+        static WebServiceAgent()
+        {
+            _agent = new Dictionary<string, object>();
+            _agentType = new Dictionary<string, Type>();
+        }
+        public static object Agent(string url)
+        {
+            url = url.ToLower();
+            if (_agent.Keys.Contains(url))
+            {
+                return _agent[url];
+            }
+            else
+            {
+                SetWebServiceAgent(url);
+                return _agent[url];
+            }
+        }
+        public static Type AgentType(string url)
+        {
+            url = url.ToLower();
+            if (_agent.Keys.Contains(url))
+            {
+                return _agentType[url];
+            }
+            else
+            {
+                SetWebServiceAgent(url);
+                return _agentType[url];
+            }
+        }
         /// <summary<
         /// 构造函数
         /// </summary<
         /// <param name="url"<</param<
-        public WebServiceAgent(string url)
+        public static void SetWebServiceAgent(string url)
         {
             XmlTextReader reader = new XmlTextReader(url + "?wsdl");
             
@@ -55,9 +87,12 @@ namespace WebServiceTest
                 }
                 throw new Exception(sb.ToString());
             }
-            //生成代理实例 
-            agentType = cr.CompiledAssembly.GetTypes()[0];
-            agent = Activator.CreateInstance(agentType);
+            //生成代理实例
+            string key = url.ToLower();
+            Type agentType = cr.CompiledAssembly.GetTypes()[0];
+            _agentType.Add(key, agentType);
+            object agent = Activator.CreateInstance(agentType);
+            _agent.Add(key, agent);
         }
 
         ///<summary<
@@ -66,10 +101,10 @@ namespace WebServiceTest
         ///<param name="methodName"<方法名，大小写敏感</param<
         ///<param name="args"<参数，按照参数顺序赋值</param<
         ///<returns<Web服务的返回值</returns<
-        public object Invoke(string methodName, params object[] args)
+        public static object Invoke(string url, string methodName, params object[] args)
         {
-            MethodInfo mi = agentType.GetMethod(methodName);
-            return this.Invoke(mi, args);
+            MethodInfo mi = AgentType(url).GetMethod(methodName);
+            return Invoke(url, mi, args);
         }
         ///<summary<
         ///调用指定方法
@@ -77,20 +112,18 @@ namespace WebServiceTest
         ///<param name="method"<方法信息</param<
         ///<param name="args"<参数，按照参数顺序赋值</param<
         ///<returns<Web服务的返回值</returns<
-        public object Invoke(MethodInfo method, params object[] args)
+        public static object Invoke(string url, MethodInfo method, params object[] args)
         {
+            object agent = Agent(url);
             return method.Invoke(agent, args);
         }
-        public MethodInfo[] Methods
+        public static MethodInfo[] Methods(string url)
         {
-            get
-            {
-                return agentType.GetMethods();
-            }
+            return AgentType(url).GetMethods();
         }
-        public MethodInfo Method(string methodName)
+        public static MethodInfo Method(string url, string methodName)
         {
-            return agentType.GetMethod(methodName);
+            return AgentType(url).GetMethod(methodName);
         }
     }
 }
