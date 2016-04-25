@@ -49,7 +49,7 @@ namespace WebServiceTest
             }
         }
         /// <summary<
-        /// 构造函数
+        /// 设置代理
         /// </summary<
         /// <param name="url"<</param<
         public static void SetWebServiceAgent(string url)
