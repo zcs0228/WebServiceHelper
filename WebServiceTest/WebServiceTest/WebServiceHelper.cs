@@ -37,7 +37,10 @@ namespace WebServiceTest
                 ccu.Namespaces.Add(cn);
                 sdi.Import(cn, ccu);
                 CSharpCodeProvider csc = new CSharpCodeProvider();
-                ICodeCompiler icc = csc.CreateCompiler();
+
+                #region .net4.0以前版本使用,已过时
+                //ICodeCompiler icc = csc.CreateCompiler();
+                #endregion
 
                 //设定编译参数   
                 CompilerParameters cplist = new CompilerParameters();
@@ -48,8 +51,14 @@ namespace WebServiceTest
                 cplist.ReferencedAssemblies.Add("System.Web.Services.dll");
                 cplist.ReferencedAssemblies.Add("System.Data.dll");
 
-                //编译代理类   
-                CompilerResults cr = icc.CompileAssemblyFromDom(cplist, ccu);
+                //编译代理类 
+                #region .net4.0以前版本使用,已过时
+                //CompilerResults cr = icc.CompileAssemblyFromDom(cplist, ccu);
+                #endregion
+
+                #region .net4.0以后版本使用
+                CompilerResults cr = csc.CompileAssemblyFromDom(cplist, ccu);
+                #endregion
                 if (true == cr.Errors.HasErrors)
                 {
                     System.Text.StringBuilder sb = new System.Text.StringBuilder();

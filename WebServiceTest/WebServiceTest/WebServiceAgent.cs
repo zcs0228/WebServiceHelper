@@ -89,9 +89,9 @@ namespace WebServiceTest
             }
             //生成代理实例
             string key = url.ToLower();
-            Type agentType = cr.CompiledAssembly.GetTypes()[0];
+            Type agentType = cr.CompiledAssembly.GetTypes()[0]; //编译生成程序集Type
             _agentType.Add(key, agentType);
-            object agent = Activator.CreateInstance(agentType);
+            object agent = Activator.CreateInstance(agentType); //生成代理实例
             _agent.Add(key, agent);
         }
 

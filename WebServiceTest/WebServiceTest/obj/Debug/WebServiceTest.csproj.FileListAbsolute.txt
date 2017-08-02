@@ -10,3 +10,8 @@ D:\zcsgit\WebServiceHelper\WebServiceTest\WebServiceTest\obj\Debug\WebServiceTes
 D:\zcsgit\WebServiceHelper\WebServiceTest\WebServiceTest\bin\Debug\WebServiceTest.exe
 D:\zcsgit\WebServiceHelper\WebServiceTest\WebServiceTest\bin\Debug\WebServiceTest.pdb
 D:\zcsgit\WebServiceHelper\WebServiceTest\WebServiceTest\obj\Debug\WebServiceTest.csprojResolveAssemblyReference.cache
+E:\zcsgit\WebServiceHelper\WebServiceTest\WebServiceTest\bin\Debug\WebServiceTest.exe.config
+E:\zcsgit\WebServiceHelper\WebServiceTest\WebServiceTest\obj\Debug\WebServiceTest.exe
+E:\zcsgit\WebServiceHelper\WebServiceTest\WebServiceTest\obj\Debug\WebServiceTest.pdb
+E:\zcsgit\WebServiceHelper\WebServiceTest\WebServiceTest\bin\Debug\WebServiceTest.exe
+E:\zcsgit\WebServiceHelper\WebServiceTest\WebServiceTest\bin\Debug\WebServiceTest.pdb
